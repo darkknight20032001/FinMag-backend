@@ -1,12 +1,15 @@
-const mysql = require('mysql');
-// Create a connection pool
-const pool = mysql.createPool({
-  connectionLimit: 1000000,
-  host: '10.5.33.133',
-  user: 'Rachit',
-  password: 'Rachit@2005528',
-  database: 'FinMag'
-});
+const mongoose = require("mongoose");
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect('mongodb://127.0.0.1:27017/finMag', {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
+    console.log(`Mongodb connected ${conn.connection.host}`);
+  } catch (err) {
+    console.error(`Error ${err}`);
+    process.exit();
+  }
+};
 
-// Export the pool
-module.exports = pool;
+module.exports = connectDB;
